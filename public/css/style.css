@@ -1,0 +1,1266 @@
+:root {
+    --primary-color: #003e29;
+    --secondary-color: #dff9ba;
+    --text-color: #370c4a;
+    --background-color: #fff;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add margin to body to prevent content from hiding behind navbar */
+body {
+    padding-top: 50px; /* Adjust this based on your navbar height */
+    background-color:var(--background-color);
+}
+.main-content{
+    padding-top: 50px;
+}
+
+/* star section */
+.stars {
+	display: flex;
+	justify-content: left;
+	margin-top: 10px;
+}
+.star {
+	font-size: 2rem;
+	color: #ccc;
+	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.star.filled{
+	color: gold;
+}
+
+/* like section */
+.like-icon {
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.liked {
+	color: red;
+}
+
+.unliked {
+	color: gray;
+}
+
+.comment-section {
+	margin-top: 20px;
+}
+
+.comment {
+	margin-bottom: 10px;
+}
+
+.liked i {
+    color: red;
+}
+
+.unliked i {
+    color: grey;
+}
+
+/* for like button style */
+
+#like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+#like-button i {
+    font-size: 24px;
+}
+
+/* for comment box style */
+
+.comment-box {
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    box-shadow: none; /* No shadow initially */
+    border: none; /* No border initially */
+}
+
+.comment-box:hover, 
+.comment-box:focus-within {
+    border: 1px solid #ccc; /* Border appears on hover/focus */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover/focus */
+}
+
+.comment-content {
+    display: inline-block;
+    padding: 5px;
+}
+
+/* Styling for Edit/Delete icons */
+.comment-actions {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: white;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    z-index: 2; /* Ensure the action buttons are above the comment content */
+}
+
+/* Button margins */
+.comment-actions .btn {
+    margin-right: 5px;
+}
+
+/* Styling for the inline edit form */
+.edit-comment-form {
+    background: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 3;
+}
+
+/* Textarea inside the edit form */
+.edit-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Hide edit form initially */
+.edit-comment-form.d-none {
+    display: none;
+}
+
+/* Submit and Cancel buttons in the inline form */
+.edit-comment-form .btn {
+    margin-right: 5px;
+}
+
+
+
+/* Topbar styles */
+.topbar {
+    background-color: var(--secondary-color); /* Light background for the topbar */
+    padding: 10px 0;
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Align to the top of the viewport */
+    left: 0;
+    width: 100%;
+    z-index: 1100; /* Higher than navbar */
+
+}
+
+/* Container for aligning topbar content */
+.topbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Topbar left section */
+.topbar-left a {
+    font-family: cursive;
+    color: var(--text-color);
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+/* Topbar right section */
+.topbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-right a {
+    color:var(--text-color); /* Dark text color for links */
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+/* Styling for the user photo */
+.user-photo-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    object-fit: cover;
+}
+
+.user-initial {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color); /* Primary color */
+    color: var(--secondary-color);
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    text-transform: uppercase;
+}
+
+
+/* Hidden dropdown box */
+.user-dropdown-box {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    background-color: var(--secondary-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 220px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+/* When the dropdown is visible */
+.user-dropdown-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* List styling */
+.user-dropdown-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* List items styling */
+.user-dropdown-box ul li {
+    padding: 12px 0;
+    transition: all 0.3s ease;
+}
+
+/* Links and buttons */
+.user-dropdown-box ul li a,
+.user-dropdown-box ul li button {
+    text-decoration: none;
+    color: var(--primary-color);
+    display: block;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 8px 0;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for links and buttons */
+.user-dropdown-box ul li a:hover,
+.user-dropdown-box ul li button:hover {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-left: 10px;
+    transform: translateX(5px);
+}
+
+@media (max-width: 480px) {
+    .topbar .container-fluid {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+
+    /* Reduce font sizes and margins for very small screens */
+    .topbar-left a {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .topbar-right a {
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .user-dropdown-box ul li a,
+    .user-dropdown-box ul li button {
+        font-size: 14px;
+    }
+
+    /* Further reduce user photo size */
+    .user-photo,
+    .user-initial {
+        width: 30px;
+        height: 30px;
+    }
+}
+/* end of tool bar*/ 
+
+
+/* General navbar styles */
+.navbar {
+    position: fixed;
+    top: 40px; /* Adjusted to sit at the very top */
+    left: 0;
+    width: 100%;
+    max-height: 110px;
+    z-index: 1000;
+    background-color: #003e29; /* Initial solid color */
+    opacity: 1; /* Initial state: fully opaque */
+    box-shadow: 0 2px 4px #cbbcbd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* Reduce opacity on scroll */
+.navbar.scrolled {
+    opacity: 0.5; /* Reduce opacity to 50% on scroll */
+    background-color: #333;
+}
+
+
+
+/* Container for logo and links */
+.navbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+   max-height: 100px;
+}
+
+
+/* Logo styles */
+.navbar-brand img {
+    height: 100px;
+    object-fit: cover;
+    margin-right: auto;
+    
+
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.02);
+    
+}
+
+/* Center links with flexbox */
+.nav-links {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+/* Styling for individual nav-links */
+.nav-link {
+    color: var(--secondary-color);
+    font-size: 20px;
+    font-weight: 500;
+    font-family: cursive;
+    margin-right: 20px;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #dff9ba;
+
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* HIDE nav links and show hamburger icon on smaller screens */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Hide the links on small screens */
+        flex-direction: column;
+        position: absolute;
+        top: 100px;
+        right: 0;
+        background-color: #003e29;
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        max-height: calc(100vh - 110px); /* Ensure it doesn’t go beyond the viewport height */
+        overflow-y: auto;
+    }
+
+    .nav-links.show {
+        display: flex; /* Show links when toggled */
+    }
+
+    .nav-link {
+        margin: 5px 0;
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger on small screens */
+    }
+}
+
+/* General hero section styles */
+.hero {
+    display: flex;
+    height: 90vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+/* Left section for the slider */
+.hero-left {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Hero slider container */
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Hero slide with opacity animation */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    animation: fade 18s infinite;
+}
+
+/* Fade animation */
+@keyframes fade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    30% { opacity: 1; }
+    40% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* Setting animation delay for each background */
+.hero-slide:nth-child(1) {
+    background-image: url('/images/slide1.png');
+    animation-delay: 0s;
+}
+
+.hero-slide:nth-child(2) {
+    background-image: url('/images/slide2.png');
+    animation-delay: 6s;
+}
+
+.hero-slide:nth-child(3) {
+    background-image: url('/images/slide3.png');
+    animation-delay: 12s;
+}
+
+/* Right section for hero text */
+.hero-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--text-color);
+    z-index: 2; /* Ensure it stays on top of the slides */
+}
+
+/* Hero content styles */
+.hero-content {
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Hero title and text */
+.hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-text {
+    font-size: 20px;
+    line-height: 1.6;
+   font-weight: bold;
+}
+
+
+
+/* hero end */
+
+/* blog card start */
+/* Container for blog cards */
+.blog-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+     /* Center cards horizontally */
+}
+.blog-card-link{
+    text-decoration: none;
+}
+/* Blog card styles */
+.blog-card {
+    width: 300px; /* Fixed width for uniformity */
+    height: 400px; /* Fixed height for uniformity */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff; /* Background color */
+    
+}
+
+/* Image styling */
+.blog-card-img-top {
+    width: 100%;
+    height: 200px; /* Fixed height for image */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Blog card body */
+.blog-card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Ensures the body takes up available space */
+    justify-content: space-between; /* Distribute space between elements */
+}
+
+/* Blog card title */
+.blog-card-title {
+    font-family: 'Arial', sans-serif; /* Clear and bold font */
+    font-weight: bold;
+    font-size: 1.25rem; /* Adjusted size for consistency */
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+/* Blog card text */
+.blog-card-text {
+    font-size: 1rem; /* Font size */
+    margin-bottom: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+/* Button styling */
+.blog-card .btn {
+    width: 100px;
+    height: 40px;
+    background-color:#fff;
+    color: var(--text-color);
+    font-size: 0.875rem;
+    font-weight: bold;
+    display: flex;
+    border: none;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effects */
+.blog-card:hover {
+    /* transform: scale(1.03); Slightly increase card size on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Add stronger shadow on hover */
+}
+
+.blog-card .btn:hover {
+    background-color: var(--primary-color); /* Change button color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    color: var(--secondary-color);
+}
+
+/* Blog Details Styling */
+.blog-details {
+    margin: 20px 0;
+}
+
+.blog-photo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Space between photo and content */
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color:var(--text-color);
+    margin-bottom: 10px;
+}
+
+.blog-meta {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.blog-intro {
+    font-size: 1.25rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.blog-body {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+/* blog btn */
+.show-list-btn {
+    background-color: var(--background-color);
+    color:var(--text-color);
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.show-list-btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0px 5px 10px #333;
+}
+
+
+
+/* Container for player cards */
+.section-top-space{
+    margin-top: 80px ;
+}
+.player-card-container {
+    display: flex;
+    justify-content: center; /* Center the card horizontally */
+    margin-bottom: 20px;
+  }
+  
+  /* Link styling to cover the entire card */
+  .player-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Player card styling */
+  .player-card {
+    position: relative;
+    width: 300px; /* Fixed square size */
+    height: 300px; /* Make it a square */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Image styling */
+  .player-card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 10px;
+  }
+  
+ /* Overlay with player name and star rating */
+.player-card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+}
+  
+  /* Player card title (name) styling */
+  .player-card-title {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+   
+  }
+
+  .star-rating{
+    margin-top: 1px;
+    display: flex;
+    justify-content: center; /* Center the stars */
+  }
+  
+  /* Hover effects */
+  .player-card:hover {
+    transform: scale(1.03); /* Slightly enlarge on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+
+  /* Container for video cards */
+.section-top-space {
+    margin-top: 80px;
+}
+
+.video-card-container {
+    display: flex;
+    justify-content: center; /* Center the card horizontally */
+    margin-bottom: 20px;
+}
+
+/* Link styling to cover the entire card */
+.video-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Video card styling */
+.video-card {
+    position: relative;
+    width: 300px; /* Fixed square size */
+    height: 300px; /* Make it a square */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Video styling */
+.video-card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the video covers the area without distortion */
+    border-radius: 10px;
+}
+
+/* Overlay with video caption */
+.video-card-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    padding: 10px;
+    text-align: center;
+}
+
+/* Video card title (caption) styling */
+.video-card-title {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+}
+
+/* Hover effects */
+.video-card:hover {
+    transform: scale(1.03); /* Slightly enlarge on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* player show style */
+
+/* Player Show Page CSS */
+.player-cover-photo {
+    width: 100%;
+    height: 450px; /* Adjust the height as needed */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Grid layout for player details */
+.player-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three items per row */
+    gap: 20px;
+    font-size: 1.2rem;
+}
+
+.detail-item {
+    text-align: center;
+}
+
+.detail-item strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #777;
+}
+
+.detail-item p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Button Styling */
+.player-back-btn {
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--background-color);
+    text-decoration: none;
+}
+.player-back-btn:hover{
+    background-color: var(--primary-color); /* Change button color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    color: var(--secondary-color);
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .player-details-grid {
+        grid-template-columns: 1fr; /* One item per row on small screens */
+    }
+
+    .player-cover-photo {
+        height: 300px; /* Adjust height for smaller screens */
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
+}
+
+/* General styles for regitster and login form containers */
+
+
+
+ 
+
+/* dashboard styling*/
+
+/* General Container */
+
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 150px;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+  }
+  .sidebar-header{
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-header h2 {
+    color: #ecf0f1;
+    font-size: 24px;
+   margin: 0;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 80px;
+  }
+  
+  .sidebar-menu li {
+    padding: 15px 10px;
+    font-size: 16px;
+    color: #ecf0f1;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+   
+  }
+  
+  .sidebar-menu li:hover {
+    background-color: #34495e;
+    cursor: pointer;
+  }
+  
+  .sidebar-menu li i {
+    margin-right: 10px;
+  }
+  
+  /* Main Content */
+  .dash-main-content {
+    margin-left: 250px; /* Compensates for the sidebar */
+    padding: 20px;
+    
+    min-height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-photo {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Dashboard Cards */
+  .dashboard-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  .card p {
+    font-size: 24px;
+    color: #16a085;
+  }
+  
+  /* Analytics Charts */
+  .analytics {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .analytics-chart {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+  }
+  
+  .analytics-chart h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  /* Recent Activity */
+  .recent-activity {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+  }
+  
+  .recent-activity h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  .recent-items {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .recent-item {
+    width: 30%;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .recent-item h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+  
+  .recent-item ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .recent-item li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .recent-item li img {
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  
+  /* Tablet and Mobile View - max-width 768px */
+@media (max-width: 768px) {
+    .sidebar {
+        position: absolute;
+        transform: translateX(-100%); /* Hide the sidebar by default */
+        z-index: 1000;
+    }
+
+    .dash-main-content {
+        margin-left: 0; /* No margin when sidebar is hidden */
+    }
+
+    /* Toggle Sidebar Button */
+    .toggle-sidebar-btn {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        background-color: #2c3e50;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+    }
+
+    /* When Sidebar is Active */
+    .sidebar.active {
+        transform: translateX(0); /* Slide the sidebar into view */
+    }
+
+    .dashboard-cards,
+    .analytics,
+    .recent-items {
+        flex-direction: column; /* Stack all items vertically */
+    }
+
+    .card,
+    .analytics-chart,
+    .recent-item {
+        width: 100%; /* Full width on mobile */
+        margin-bottom: 20px;
+    }
+}
+
+/* Very Small Mobile Devices - max-width 480px */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 180px; /* Reduce sidebar width even further */
+    }
+
+    .toggle-sidebar-btn {
+        padding: 8px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .card h3, .analytics-chart h3, .recent-activity h3 {
+        font-size: 16px; /* Reduce font size */
+    }
+
+    .card p {
+        font-size: 20px; /* Smaller font size for mobile */
+    }
+
+    .recent-item h4 {
+        font-size: 14px;
+    }
+}
+  /* contact style */
+  .contact-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.contact-column {
+    flex: 1;
+    padding: 20px;
+}
+
+.contact-info-column {
+    max-width: 500px;
+    text-align: left;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 30px;
+    color: #6f0505;
+}
+
+.contact-item i {
+    margin-right: 10px;
+    color: #0c0203;
+    font-size: 25px;
+}
+
+.contact-item a {
+    color: #020911;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.contact-item a:hover {
+    color: #e57f0b;
+}
+
+.google-map-column {
+    flex-grow: 1;
+    max-width: 650px;
+}
+
+.google-map {
+    width: 100%;
+   
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Make the layout responsive */
+@media (max-width: 768px) {
+    .contact-row {
+        flex-direction: column;
+    }
+
+    .contact-info-column, .google-map-column {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .google-map {
+        height: 300px;
+    }
+}
+/*footer */
+/* Social media icons hover effect */
+.nav-link i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.nav-link:hover {
+    color: #f8f9fa; /* Change color on hover */
+}
+
+.nav-link:hover i {
+    transform: scale(1.2); /* Slightly enlarge the icon on hover */
+    transition: transform 0.3s ease;
+}
